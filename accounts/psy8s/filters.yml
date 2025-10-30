@@ -1,0 +1,62 @@
+##############################################################################
+# FILTERS - OPTIMIZED FOR MICRO-INFLUENCER GROWTH STRATEGY
+# For more information: https://docs.gramaddict.org/#/configuration?id=available-filters
+# Targets: 50-2500 followers accounts for maximum engagement & success rate
+##############################################################################
+
+## Filters on profile type
+skip_if_private: false           # Engage with private (more personal connections)
+skip_if_public: false            # Engage with public
+skip_business: false             # Don't skip business (many micro-influencers)
+skip_non_business: false         # Engage with personal accounts
+skip_following: false            # Can re-engage with following
+skip_follower: false             # Can engage with followers
+skip_if_link_in_bio: false       # Many legit accounts have links
+follow_private_or_empty: true    # Follow private if criteria met
+
+## Filters on profile stats - CRITICAL FOR SUCCESS
+min_followers: 50                # Min 50 (real accounts)
+max_followers: 2500              # MAX 2500 - KEY TO AVOIDING 100% SKIP RATE
+min_followings: 30               # Min 30 (active users)  
+max_followings: 3000             # Max 3000 (not spam bots)
+min_potency_ratio: 0.3           # Lowered for broader targeting
+max_potency_ratio: 10            # Relaxed ratio (engagement > ratio)
+min_posts: 3                     # At least 3 posts
+mutual_friends: -1               # Ignore mutual friends filter
+
+## Filters on biography and name
+# blacklist_words: []            # Commented out for maximum reach
+# mandatory_words: []            # Commented out for maximum reach
+# specific_alphabet: [LATIN]     # Optional: uncomment for Latin only
+# biography_language: [en]       # Optional: uncomment for English only
+# biography_banned_language: []  # No banned languages
+
+## Filters for enabling comments - ALL ENABLED FOR MAXIMUM ENGAGEMENT
+# Action specific
+comment_hashtag_likers_top: true
+comment_hashtag_likers_recent: true
+comment_hashtag_posts_top: true
+comment_hashtag_posts_recent: true
+comment_place_likers_top: true
+comment_place_likers_recent: true
+comment_place_posts_top: true
+comment_place_posts_recent: true
+comment_blogger_followers: true
+comment_blogger_following: true
+comment_blogger_post_likers: true
+comment_blogger: true
+comment_interact_usernames: true
+comment_interact_from_file: true
+comment_feed: true              # ENABLED for feed engagement
+
+# Content specific
+comment_photos: true
+comment_videos: true
+comment_carousels: true
+
+## Filters for sending PM
+pm_to_private_or_empty: false   # Don't PM private (lower spam signal)
+
+## Filters on number of post likers - ADJUSTED FOR QUALITY
+min_likers: 10                  # At least 10 likes (quality content)
+max_likers: 5000                # Max 5000 (not viral/celebrity posts)
