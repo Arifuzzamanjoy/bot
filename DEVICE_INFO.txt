@@ -1,0 +1,134 @@
+================================================================
+GEELARK DEVICE INFORMATION
+================================================================
+
+Device Address: 128.14.109.187:21398
+Credential: 526020
+Model: Samsung SM-S908E (Galaxy S22 Ultra)
+Android: 12 (SDK 31)
+Resolution: 720x1344
+Status: ✓ AUTHENTICATED & READY
+
+================================================================
+AUTHENTICATION
+================================================================
+
+Before each bot session, authenticate with:
+  ./geelark_glogin.sh
+
+The script will:
+  1. Connect via ADB: adb connect 128.14.109.187:21398
+  2. Authenticate: adb -s 128.14.109.187:21398 shell glogin 526020
+  3. Verify access works
+
+Authentication is PER-SESSION (not persistent).
+If device disconnects, re-run the script.
+
+================================================================
+DEVICE TESTING
+================================================================
+
+Test device with GramAddict-aligned test:
+  source .venv/bin/activate
+  python3 test_device_simple.py
+
+Or with pytest:
+  source .venv/bin/activate
+  cd test && pytest test_geelark_device.py -v
+
+================================================================
+INSTAGRAM SETUP
+================================================================
+
+1. View device screen:
+   scrcpy -s 128.14.109.187:21398
+
+2. Install Instagram (if not already):
+   - Open Play Store on device
+   - Search for "Instagram"
+   - Install
+
+3. Login to Instagram MANUALLY:
+   - Username: psy8s
+   - Password: (your password)
+   - Complete any 2FA/security checks
+   
+   ⚠️ GramAddict does NOT handle login!
+   You must login manually first!
+
+================================================================
+RUNNING GRAMADDICT BOT
+================================================================
+
+Step 1: Authenticate (required before each session)
+  ./geelark_glogin.sh
+
+Step 2: Activate virtual environment
+  source .venv/bin/activate
+
+Step 3: Run bot
+  python3 -m GramAddict run --config accounts/psy8s/config.yml
+
+The config file is already configured with:
+  - device: 128.14.109.187:21398
+  - username: psy8s
+
+================================================================
+QUICK COMMANDS
+================================================================
+
+# Connect to device
+adb connect 128.14.109.187:21398
+
+# Authenticate
+./geelark_glogin.sh
+
+# Check device
+adb devices
+
+# View device screen
+scrcpy -s 128.14.109.187:21398
+
+# Test device
+source .venv/bin/activate && python3 test_device_simple.py
+
+# Run bot
+source .venv/bin/activate && python3 -m GramAddict run --config accounts/psy8s/config.yml
+
+# Check if Instagram is installed
+adb -s 128.14.109.187:21398 shell pm list packages | grep instagram
+
+# Launch Instagram on device
+adb -s 128.14.109.187:21398 shell am start -n com.instagram.android/.activity.MainTabActivity
+
+================================================================
+TROUBLESHOOTING
+================================================================
+
+"error: you should run glogin to login first"
+  → Run: ./geelark_glogin.sh
+
+"device offline" or "device not found"
+  → adb kill-server && adb connect 128.14.109.187:21398
+  → Then: ./geelark_glogin.sh
+
+"glogin success" but still errors
+  → Credential might have expired
+  → Check GeeLark dashboard for new credential
+
+Instagram login issues
+  → GramAddict cannot login for you
+  → Use scrcpy to login manually on the device
+  → Complete any 2FA checks
+
+================================================================
+DEVICE HISTORY
+================================================================
+
+Previous device: 128.14.109.187:20624 (credential: 2226cd)
+Current device:  128.14.109.187:21398 (credential: 526020)
+
+Note: GeeLark devices may have rotating IPs/ports/credentials
+Always check your GeeLark dashboard for current details
+
+================================================================

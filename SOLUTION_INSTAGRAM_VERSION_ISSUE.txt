@@ -1,0 +1,309 @@
+=================================================================
+GRAMADDICT BOT ISSUE ANALYSIS & SOLUTION
+=================================================================
+Date: October 29, 2025
+Account: psy8s
+Device: 128.14.109.187:21398 (GeeLark Samsung SM-S908E)
+
+=================================================================
+PROBLEM SUMMARY
+=================================================================
+
+The bot fails to read profile statistics (posts, followers, following)
+from Instagram, resulting in this critical error:
+
+"Cannot get posts count text"
+"Cannot find followers count view"
+"Cannot find following count view"
+"Could not get one of the following from your profile"
+
+Root Cause: Instagram UI Resource ID Changes
+---------------------------------------------
+
+Instagram Version Installed: 404.0.0.48.76
+GramAddict Tested Version: 300.0.0.29.110
+
+Instagram version 404 is TOO NEW (104 versions ahead of tested).
+Instagram frequently changes their UI element IDs between versions,
+breaking automation tools like GramAddict.
+
+=================================================================
+SOLUTION OPTIONS (RANKED BY EFFECTIVENESS)
+=================================================================
+
+OPTION 1: DOWNGRADE INSTAGRAM (RECOMMENDED) ⭐⭐⭐⭐⭐
+----------------------------------------------------------
+
+This is the MOST RELIABLE solution. Install an older, tested
+Instagram version that GramAddict is compatible with.
+
+Recommended Versions (from GitHub issues):
+- 260.0.0.23.115 (confirmed working by community)
+- 270.x.x.x.x (stable range)
+- 280.x.x.x.x (stable range)
+- 300.0.0.29.110 (officially tested)
+
+Steps to downgrade:
+
+1. Download old Instagram APK:
+   Sources:
+   - https://www.apkmirror.com/apk/instagram/instagram-instagram/
+   - https://apkpure.com/instagram/com.instagram.android/versions
+   - Search for version: 260.0.0.23.115 or 300.0.0.29.110
+
+2. Uninstall current Instagram on device:
+   adb -s 128.14.109.187:21398 uninstall com.instagram.android
+
+3. Install old version:
+   adb -s 128.14.109.187:21398 install instagram-260.0.0.23.115.apk
+
+4. Disable auto-updates:
+   - Open Play Store on device
+   - Search Instagram
+   - Tap 3 dots → Uncheck "Enable auto-update"
+
+5. Login to Instagram manually (bot cannot do this)
+
+6. Update config to allow untested version (just in case):
+   File: accounts/psy8s/config.yml
+   Change: allow-untested-ig-version: true
+
+Pros:
+✅ Most reliable - proven to work
+✅ No code changes needed
+✅ Community tested versions available
+
+Cons:
+❌ Requires APK download
+❌ Must disable auto-updates
+❌ Older UI (missing newer Instagram features)
+
+
+OPTION 2: UPDATE GRAMADDICT TO LATEST VERSION
+----------------------------------------------------------
+
+Check if there's a newer GramAddict version with updated
+resource IDs for Instagram 404.
+
+Current: GramAddict 3.2.12
+Check for updates:
+
+pip3 install --upgrade gramaddict
+
+Or check GitHub for latest release:
+https://github.com/GramAddict/bot/releases
+
+Pros:
+✅ Easy to apply
+✅ May include other bug fixes
+
+Cons:
+❌ Project seems less active (last major update unclear)
+❌ May not support Instagram 404 yet
+❌ No guarantee it will work
+
+
+OPTION 3: MANUAL RESOURCE ID FIX (ADVANCED) ⚠️
+----------------------------------------------------------
+
+Manually update the resource IDs in GramAddict code to match
+Instagram 404's new UI element IDs.
+
+This requires:
+1. Extracting current Instagram APK resource IDs
+2. Updating GramAddict/core/resources.py
+3. Testing each profile element
+
+Steps:
+
+1. Dump Instagram's UI hierarchy:
+   adb -s 128.14.109.187:21398 shell uiautomator dump
+   adb -s 128.14.109.187:21398 pull /sdcard/window_dump.xml
+
+2. Find resource IDs for profile elements:
+   - Posts count
+   - Followers count
+   - Following count
+
+3. Update: /root/bot/bot/GramAddict/core/resources.py
+   Lines 141-150:
+   
+   self.ROW_PROFILE_HEADER_TEXTVIEW_FOLLOWERS_COUNT = (
+       f"{APP_ID}:id/NEW_RESOURCE_ID_HERE"
+   )
+   self.ROW_PROFILE_HEADER_TEXTVIEW_FOLLOWING_COUNT = (
+       f"{APP_ID}:id/NEW_RESOURCE_ID_HERE"
+   )
+   self.ROW_PROFILE_HEADER_TEXTVIEW_POST_COUNT = (
+       f"{APP_ID}:id/NEW_RESOURCE_ID_HERE"
+   )
+
+4. Test the bot
+
+Pros:
+✅ Can use latest Instagram version
+✅ Learning opportunity
+
+Cons:
+❌ Very time-consuming
+❌ Requires Android/XML knowledge
+❌ May break with next Instagram update
+❌ Many elements to fix (not just profile counts)
+
+
+OPTION 4: USE CLONED/MODDED INSTAGRAM APP
+----------------------------------------------------------
+
+Some modified Instagram apps maintain stable resource IDs
+or are specifically designed for automation.
+
+Examples:
+- Instagram Lite (simpler UI, more stable)
+- GBInstagram (modded version)
+- OGInsta (modded version)
+
+WARNING: Using modded apps violates Instagram ToS and
+increases ban risk significantly!
+
+Pros:
+✅ More stable resource IDs
+✅ May have automation-friendly features
+
+Cons:
+❌ HIGH BAN RISK
+❌ Violates Instagram Terms of Service
+❌ Security/privacy concerns
+❌ Not officially supported by GramAddict
+
+
+OPTION 5: WAIT FOR GRAMADDICT UPDATE
+----------------------------------------------------------
+
+Wait for GramAddict community to update bot for
+Instagram 404 compatibility.
+
+Check:
+- https://github.com/GramAddict/bot/issues
+- https://github.com/GramAddict/bot/pulls
+- https://discord.gg/66zWWCDM7x (GramAddict Discord)
+
+Pros:
+✅ Zero effort required
+✅ Proper fix from developers
+
+Cons:
+❌ May take weeks/months
+❌ Project activity seems low
+❌ No guarantee it will happen
+
+=================================================================
+RECOMMENDED ACTION PLAN
+=================================================================
+
+IMMEDIATE (Today):
+------------------
+1. Download Instagram version 260.0.0.23.115 or 300.0.0.29.110
+   from APKMirror or APKPure
+
+2. Uninstall Instagram 404 from device:
+   adb -s 128.14.109.187:21398 uninstall com.instagram.android
+
+3. Install old version:
+   adb -s 128.14.109.187:21398 install instagram-old.apk
+
+4. Open Instagram and login manually (psy8s account)
+
+5. Disable auto-updates in Play Store
+
+6. Update config:
+   nano accounts/psy8s/config.yml
+   Set: allow-untested-ig-version: true
+
+7. Test the bot:
+   ./geelark_glogin.sh
+   source .venv/bin/activate
+   python3 -m GramAddict run --config accounts/psy8s/config.yml
+
+
+SHORT-TERM (This Week):
+-----------------------
+1. Monitor bot behavior with downgraded Instagram
+
+2. Check GramAddict GitHub for updates:
+   pip3 install --upgrade gramaddict
+
+3. Join GramAddict Discord for community support:
+   https://discord.gg/66zWWCDM7x
+
+
+LONG-TERM (Ongoing):
+--------------------
+1. Keep Instagram auto-updates disabled
+
+2. Monitor GramAddict releases for Instagram 404 support
+
+3. When GramAddict supports Instagram 404:
+   - Update GramAddict: pip3 install --upgrade gramaddict
+   - Update Instagram to newer version
+   - Re-enable auto-updates if desired
+
+=================================================================
+ADDITIONAL RESOURCES
+=================================================================
+
+Instagram APK Downloads:
+- https://www.apkmirror.com/apk/instagram/instagram-instagram/
+- https://apkpure.com/instagram/com.instagram.android/versions
+
+GramAddict Community:
+- GitHub: https://github.com/GramAddict/bot
+- Discord: https://discord.gg/66zWWCDM7x
+- Docs: https://docs.gramaddict.org
+
+Working Instagram Versions (Community Reported):
+- 260.0.0.23.115 ← Highly recommended
+- 270.x.x.x.x
+- 280.x.x.x.x
+- 300.0.0.29.110 ← Officially tested
+
+=================================================================
+TECHNICAL DETAILS
+=================================================================
+
+Error Location in Code:
+- File: GramAddict/core/views.py
+- Lines: 1665, 1689, 1703
+- Function: ProfileView.getProfileInfo()
+
+Resource IDs Failing:
+- ROW_PROFILE_HEADER_TEXTVIEW_POST_COUNT
+- ROW_PROFILE_HEADER_TEXTVIEW_FOLLOWERS_COUNT
+- ROW_PROFILE_HEADER_TEXTVIEW_FOLLOWING_COUNT
+
+These IDs don't exist or have been renamed in Instagram 404.
+
+Crash Dump Location:
+- /root/bot/bot/crashes/3.2.12_2025-10-29-10-56-16.zip
+
+Device Info:
+- Model: Samsung SM-S908E (Galaxy S22 Ultra)
+- Android: 12 (SDK 31)
+- Resolution: 720x1344
+- Instagram: 404.0.0.48.76 (TOO NEW)
+
+=================================================================
+CONCLUSION
+=================================================================
+
+The issue is NOT with your setup, device, or configuration.
+It's a compatibility problem between GramAddict 3.2.12 and
+Instagram 404.0.0.48.76.
+
+BEST SOLUTION: Downgrade Instagram to version 260.0.0.23.115
+
+This is a known issue in the automation community. Instagram
+frequently changes UI elements to break bots, and automation
+tools must constantly adapt. Using an older, tested version
+is the most reliable approach.
+
+=================================================================

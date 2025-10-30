@@ -1,0 +1,76 @@
+================================================================
+SETUP COMPLETE - ACCOUNT: psy8s
+================================================================
+
+✅ Old account (satosa1x) deleted
+✅ New account (psy8s) created and configured
+✅ Device configured: 128.14.109.187:21398
+
+================================================================
+IMPORTANT: LOGIN TO INSTAGRAM FIRST!
+================================================================
+
+Before running the bot, you MUST login to Instagram manually:
+
+1. Open device screen:
+   scrcpy -s 128.14.109.187:21398
+
+2. Open Instagram on the device
+
+3. Login with your psy8s account credentials
+
+4. Complete any 2FA/security checks
+
+⚠️  GramAddict cannot login for you - this must be done manually!
+
+================================================================
+RUNNING THE BOT
+================================================================
+
+Step 1: Authenticate with GeeLark (required each session)
+  cd /root/bot/bot
+  ./geelark_glogin.sh
+
+Step 2: Activate virtual environment & run bot
+  source .venv/bin/activate
+  python3 -m GramAddict run --config accounts/psy8s/config.yml
+
+================================================================
+QUICK TEST
+================================================================
+
+Test device connection and GramAddict compatibility:
+  source .venv/bin/activate
+  python3 test_device_simple.py
+
+================================================================
+FILES UPDATED
+================================================================
+
+✓ accounts/psy8s/config.yml - New account config
+✓ geelark_glogin.sh - Updated references
+✓ test_device_simple.py - Updated account name
+✓ DEVICE_INFO.txt - Updated quick reference
+
+================================================================
+CONFIGURATION
+================================================================
+
+Account: psy8s
+Device: 128.14.109.187:21398
+Credential: 526020
+Config: /root/bot/bot/accounts/psy8s/config.yml
+
+All configuration files are in: /root/bot/bot/accounts/psy8s/
+- config.yml (main bot configuration)
+- filters.yml (account filters)
+- telegram.yml (telegram notifications)
+- comments_list.txt (comment templates)
+- pm_list.txt (DM templates)
+- whitelist.txt (whitelisted accounts)
+- blacklist.txt (blacklisted accounts)
+
+Edit these files according to:
+https://docs.gramaddict.org/#/configuration
+
+================================================================

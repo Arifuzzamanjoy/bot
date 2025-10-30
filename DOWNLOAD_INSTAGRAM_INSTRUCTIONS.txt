@@ -1,0 +1,121 @@
+================================================================
+MANUAL INSTAGRAM DOWNLOAD INSTRUCTIONS
+================================================================
+
+Since automated download is blocked, please follow these steps
+to download Instagram APK manually:
+
+================================================================
+METHOD 1: APKMirror (Most Trusted)
+================================================================
+
+1. Open this URL in your browser:
+   https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-260-0-0-23-115-release/
+
+2. Scroll down to "Download APK" section
+
+3. Click the green "DOWNLOAD APK" button
+
+4. On the next page, click "DOWNLOAD APK" again
+
+5. Wait for download to complete
+
+6. Transfer the downloaded file to your server:
+   
+   From your computer:
+   scp ~/Downloads/Instagram*.apk root@your-server-ip:/root/bot/bot/instagram-260.0.0.23.115.apk
+
+   Or use SFTP/WinSCP/FileZilla to upload to: /root/bot/bot/
+
+================================================================
+METHOD 2: APKPure (Alternative)
+================================================================
+
+1. Visit: https://apkpure.com/instagram/com.instagram.android/download/260.0.0.23.115
+
+2. Click "Download APK" button
+
+3. Complete CAPTCHA if prompted
+
+4. Download will start automatically
+
+5. Transfer to server (same as above)
+
+================================================================
+METHOD 3: Use Your Local Computer
+================================================================
+
+If your server can't download directly, download on your local
+machine and transfer:
+
+Windows (using WinSCP):
+  - Download WinSCP: https://winscp.net/
+  - Connect to your server
+  - Navigate to /root/bot/bot/
+  - Upload the Instagram APK file
+
+Linux/Mac (using scp):
+  scp ~/Downloads/Instagram*.apk root@your-server-ip:/root/bot/bot/
+
+================================================================
+AFTER DOWNLOAD
+================================================================
+
+Once the APK is in /root/bot/bot/, run:
+
+  cd /root/bot/bot
+  ls -lh instagram*.apk   # Verify file is there
+  ./downgrade_instagram.sh
+
+The script will then:
+  ✓ Authenticate with GeeLark
+  ✓ Uninstall current Instagram
+  ✓ Install old version
+  ✓ Verify installation
+
+================================================================
+ALTERNATIVE: Try Older Version That Might Be Available
+================================================================
+
+If you can't find v260, try these (also reported working):
+
+- Instagram 270.0.0.0.76
+- Instagram 280.0.0.0.88
+- Instagram 300.0.0.29.110 (officially tested)
+
+Search for any of these on APKMirror or APKPure.
+
+================================================================
+QUICK TEST: Manual Installation
+================================================================
+
+If you want to skip the script and install manually:
+
+1. Download Instagram APK to /root/bot/bot/
+
+2. Authenticate:
+   ./geelark_glogin.sh
+
+3. Uninstall current:
+   adb -s 128.14.109.187:21398 uninstall com.instagram.android
+
+4. Install old version:
+   adb -s 128.14.109.187:21398 install instagram-*.apk
+
+5. Open device and login:
+   scrcpy -s 128.14.109.187:21398
+
+6. Test bot:
+   source .venv/bin/activate
+   python3 -m GramAddict run --config accounts/psy8s/config.yml
+
+================================================================
+NEED HELP?
+================================================================
+
+If you have trouble downloading/transferring, let me know:
+- What OS you're using (Windows/Mac/Linux)
+- If you have SSH/SFTP access to this server
+- If you need step-by-step transfer instructions
+
+================================================================
